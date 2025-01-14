@@ -1,0 +1,279 @@
+\documentclass[a4paper,fleqn,final]{cas-dc}\usepackage[authoryear,longnamesfirst]{natbib}
+
+%%% Definicje skrótów
+\def\tsc#1{\csdef{#1}{\textsc{\lowercase{#1}}\xspace}}
+\tsc{WGM}
+\tsc{QE}
+\tsc{EP}
+\tsc{PMS}
+\tsc{BEC}
+\tsc{DE}
+%%%
+
+\begin{document}
+\let\WriteBookmarks\relax
+\def\floatpagepagefraction{1}
+\def\textpagefraction{.001}
+
+% Krótki tytuł
+\shorttitle{Analiza dokładności prognoz pogodowych na podstawie danych pomiarowych instalacji}
+
+
+% Tytuł główny artykułu
+\title [mode = title]{Analiza dokładności prognoz pogodowych na podstawie danych pomiarowych instalacji}                      
+
+% Autorzy z afiliacjami (Politechnika Opolska, tytuł inżyniera)
+\author[1]{Julia Marzec}[type=editor]
+\author[2]{Jarosław Małecki}[type=editor]
+\author[3]{Paweł Kwinta}[type=editor]
+\cormark[1]
+\address[1]{Wydział Elektrotechniki, Automatyki i Informatyki, Politechnika Opolska, Opole, Polska }
+
+
+
+% Streszczenie
+\begin{abstract}
+Program przetwarza dane pomiarowe i prognozy pogodowe z instalacji fotowoltaicznych w celu przewidywania produkcji energii za pomocą modelu N-BEATS. Łączy i agreguje dane w interwałach czasowych, przeprowadza ich analizę i czyszczenie, a następnie trenuje model na przekształconych sekwencjach czasowych. Wyniki prognoz są oceniane i wizualizowane, wspierając optymalizację zarządzania energią w systemach PV.
+\end{abstract}
+
+% Słowa kluczowe
+\begin{keywords}
+fotowoltaika \sep prognozy pogodowe  \sep agregacja danych \sep produkcja energii \sep zarządzanie energią \sep 
+\end{keywords}
+
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	WSTĘP
+%----------------------------------------------------------------------------------------
+\section{Wstęp}
+
+Dynamiczny rozwój odnawialnych źródeł energii, takich jak instalacje fotowoltaiczne (PV), stanowi kluczowy element globalnej transformacji energetycznej. Wzrost znaczenia energii słonecznej jako źródła zrównoważonej energii wymaga precyzyjnych narzędzi do analizy i prognozowania wydajności instalacji PV w zmieniających się warunkach atmosferycznych. 
+
+Celem projektu jest stworzenie programu, który integruje dane pomiarowe z instalacji PV z prognozami pogodowymi oraz wykorzystuje model N-BEATS do przewidywania produkcji energii. Model N-BEATS, opracowany z myślą o analizie szeregów czasowych, umożliwia dokładne prognozowanie, co jest kluczowe dla optymalizacji zarządzania energią i zwiększenia efektywności systemów fotowoltaicznych.
+
+Dane wejściowe obejmują:
+\begin{itemize}
+    \item Pomiarowe dane z instalacji PV, które zawierają informacje o produkcji energii oraz obciążeniach systemów.
+    \item Prognozy pogodowe, dostarczające szczegółowych danych o promieniowaniu słonecznym, temperaturze powietrza i innych kluczowych zmiennych atmosferycznych.
+\end{itemize}
+
+Program realizuje następujące kroki:
+\begin{enumerate}
+    \item Wczytanie danych pomiarowych i prognoz pogodowych.
+    \item Przetwarzanie danych, w tym ich synchronizację, interpolację i agregację do ustalonych interwałów czasowych.
+    \item Eksploracyjna analiza danych (EDA), mająca na celu identyfikację kluczowych zmiennych oraz oceny jakości danych.
+    \item Budowa i trening modelu N-BEATS na danych historycznych.
+    \item Ocena wyników oraz wizualizacja prognoz w odniesieniu do rzeczywistych pomiarów.
+\end{enumerate}
+
+W projekcie zastosowano zaawansowane metody przetwarzania danych, które pozwalają na efektywne łączenie pomiarów z prognozami. Dzięki temu możliwe jest nie tylko przewidywanie wydajności instalacji PV, ale także lepsze planowanie ich pracy w oparciu o zmieniające się warunki atmosferyczne. Praca ta wpisuje się w nurt badań nad optymalizacją systemów energetycznych, co znajduje potwierdzenie w literaturze przedmiotu \cite{oreshkin2020nbeats, liu2021pv, little2002missingdata}.
+
+%----------------------------------------------------------------------------------------
+%	CEL I ZAKRES PRACY
+%----------------------------------------------------------------------------------------
+
+\section{Cel i zakres}
+
+Głównym celem niniejszej pracy było opracowanie i implementacja programu do analizy danych pomiarowych i prognozowych związanych z instalacjami fotowoltaicznymi. Zastosowano model \textbf{N-BEATS}, aby przewidywać produkcję energii w oparciu o dane pogodowe i pomiarowe, co umożliwia efektywniejsze zarządzanie energią.
+
+\subsection{Integracja danych}
+Pierwszym krokiem była integracja danych pomiarowych i prognoz pogodowych. W tym celu dokonano harmonizacji czasowej, interpolacji brakujących wartości oraz agregacji danych do ustalonych interwałów czasowych. Proces ten pozwolił na precyzyjne połączenie danych o różnej częstotliwości pomiarów, co zwiększyło ich przydatność analityczną.
+
+Ważnym aspektem było zachowanie spójności czasowej między danymi. Dzięki zastosowaniu zaawansowanych technik interpolacji możliwe było uzupełnienie brakujących wartości w sposób minimalizujący wpływ na jakość danych. Agregacja danych w ustalonych interwałach czasowych, takich jak 30 minut, pozwoliła na dostosowanie ich do wymagań modelu N-BEATS.
+
+\subsection{Modelowanie predykcyjne}
+Następnym etapem było wykorzystanie modelu \textbf{N-BEATS}, który został wytrenowany na przygotowanych danych w celu przewidywania przyszłej produkcji energii. Model ten wykorzystuje struktury sieci neuronowych zoptymalizowane do analizy szeregów czasowych, co pozwala na uchwycenie zarówno krótkoterminowych, jak i długoterminowych trendów w danych.
+
+Aby ocenić skuteczność modelu, przeprowadzono ewaluację z użyciem wskaźników takich jak \textit{Mean Squared Error (MSE)} i \textit{Mean Absolute Error (MAE)}. Wyniki modelu zostały porównane z rzeczywistymi pomiarami, co pozwoliło na weryfikację dokładności prognoz.
+
+\subsection{Zastosowania praktyczne}
+Rezultaty pracy znajdują zastosowanie w optymalizacji zarządzania energią w systemach fotowoltaicznych. Prognozy produkcji energii mogą wspierać operatorów w lepszym planowaniu obciążeń sieci, minimalizowaniu strat energii oraz zwiększaniu wydajności instalacji PV. 
+
+Dzięki dokładnym prognozom możliwe jest również lepsze dostosowanie pracy instalacji PV do zmieniających się warunków atmosferycznych, co ma kluczowe znaczenie dla poprawy efektywności operacyjnej i ekonomicznej systemów energetycznych. Takie podejście wpisuje się w globalne dążenia do zwiększenia udziału odnawialnych źródeł energii w miksie energetycznym.
+
+
+%----------------------------------------------------------------------------------------
+%	ZBIÓR DANYCH
+%----------------------------------------------------------------------------------------
+\section{Zbiór danych (Dataset)}
+
+Dane wykorzystane w projekcie pochodzą z dwóch głównych źródeł:
+\begin{enumerate}
+    \item \textbf{Dane pomiarowe z instalacji PV}:
+    \begin{itemize}
+        \item Zawierają informacje o produkcji energii przez różne komponenty systemu, takie jak \textit{PV1 Pd}, \textit{PV2 Wsch}, \textit{PV3 Zach}.
+        \item Uwzględniają obciążenia w liniach systemu (\textit{Obciążenie L1}, \textit{Obciążenie L2}, \textit{Obciążenie L3}).
+        \item Dane były zbierane w interwałach pięciominutowych, co umożliwia szczegółową analizę wydajności instalacji.
+    \end{itemize}
+
+    \item \textbf{Dane prognozowe}:
+    \begin{itemize}
+        \item Prognozy pogodowe, takie jak \textit{ghi} (Global Horizontal Irradiance), \textit{dni} (Direct Normal Irradiance), \textit{cloud\_opacity}, \textit{air\_temp}, \textit{zenith}, \textit{azimuth}.
+        \item Dane generowane co dwie godziny, zawierające prognozy na kolejne godziny.
+        \item Wartości zostały zharmonizowane z danymi pomiarowymi przez interpolację i agregację.
+    \end{itemize}
+\end{enumerate}
+
+Proces przetwarzania danych obejmował usuwanie błędnych i niekompletnych rekordów oraz harmonizację czasową w celu uzyskania zestawów danych gotowych do modelowania predykcyjnego.
+
+Tak zorganizowany zbiór danych okazał się bogatym źródłem informacji, pozwalającym na analizę efektywności treningowej, ocenę wydolności w zależności od dyscypliny oraz planowanie optymalnych obciążeń treningowych.
+
+%----------------------------------------------------------------------------------------
+%	ALGORYTM 
+%----------------------------------------------------------------------------------------
+\section{Algorytm N-BEATS}
+
+Model \textbf{N-BEATS} (Neural Basis Expansion Analysis for Time Series) jest zaawansowaną architekturą opartą na sieciach neuronowych, zaprojektowaną specjalnie do analizy i prognozowania szeregów czasowych. Kluczowym elementem tego modelu jest jego elastyczność i zdolność do przewidywania zarówno krótkoterminowych, jak i długoterminowych trendów w danych. W odróżnieniu od innych modeli, N-BEATS nie wymaga skomplikowanej inżynierii cech, co czyni go szczególnie efektywnym przy pracy z surowymi danymi.
+
+\subsection{Architektura modelu}
+Model N-BEATS opiera się na blokach prognostycznych, które składają się z dwóch głównych komponentów:
+\begin{itemize}
+    \item \textbf{Backward Model}: Odpowiada za analizę wzorców w danych historycznych, które są następnie używane do prognozowania.
+    \item \textbf{Forward Model}: Umożliwia generowanie prognoz w oparciu o wnioski wyciągnięte przez model backward.
+\end{itemize}
+
+Każdy blok składa się z warstw w pełni połączonych, które transformują dane wejściowe za pomocą funkcji aktywacji ReLU. Model wykorzystuje również podejście typu ensemble, gdzie wiele bloków działa równolegle, aby zwiększyć dokładność prognoz i ograniczyć przeuczenie.
+
+\subsection{Zastosowanie do zbioru danych}
+W analizowanym projekcie model N-BEATS został zastosowany do przewidywania produkcji energii w systemach PV w oparciu o:
+\begin{itemize}
+    \item Dane pomiarowe, takie jak obciążenia systemu i produkcja energii w różnych komponentach instalacji.
+    \item Prognozy pogodowe, w tym promieniowanie słoneczne, temperatura powietrza i opakowanie chmur.
+\end{itemize}
+
+Dane wejściowe zostały przygotowane w formie sekwencji czasowych, gdzie każda sekwencja zawierała 24 godziny danych historycznych, a model prognozował wartości dla następnych godzin. Dzięki zastosowaniu N-BEATS możliwe było uchwycenie sezonowych wzorców oraz dynamicznych zmian w produkcji energii, co pozwoliło na zwiększenie dokładności prognoz.
+
+\subsection{Wyniki i efektywność}
+Model N-BEATS okazał się skuteczny w analizie danych fotowoltaicznych, osiągając niskie wartości błędów prognostycznych (MSE i MAE). Prognozy generowane przez model były zbieżne z rzeczywistymi pomiarami, co potwierdziło jego przydatność w praktycznych zastosowaniach. Elastyczność modelu pozwoliła również na szybkie dostosowanie do zmian w danych wejściowych, takich jak różna częstotliwość pomiarów.
+
+
+%----------------------------------------------------------------------------------------
+%	METRYKI OCENY
+%----------------------------------------------------------------------------------------
+\section{Zastosowane metryki oceny}
+Aby ocenić skuteczność modelu \textbf{N-BEATS}, zastosowano następujące metryki oceny jakości prognoz:
+\begin{itemize}
+    \item \textbf{Mean Squared Error (MSE)}: 
+    \begin{equation}
+    MSE = \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2
+    \end{equation}
+    Metryka ta mierzy średnią kwadratową różnic między prognozowanymi a rzeczywistymi wartościami. Niższe wartości MSE wskazują na wyższą dokładność prognoz.
+    
+    \item \textbf{Mean Absolute Error (MAE)}:
+    \begin{equation}
+    MAE = \frac{1}{n} \sum_{i=1}^n |y_i - \hat{y}_i|
+    \end{equation}
+    MAE mierzy średni błąd absolutny między prognozowanymi a rzeczywistymi wartościami, co pozwala na ocenę bezwzględnych odchyleń prognoz od obserwacji.
+
+    \item \textbf{Symmetric Mean Absolute Percentage Error (sMAPE)}:
+    \begin{equation}
+    sMAPE = \frac{100\%}{n} \sum_{i=1}^n \frac{|y_i - \hat{y}_i|}{(y_i + \hat{y}_i)/2}
+    \end{equation}
+    Metryka ta wyraża błąd w procentach, co ułatwia interpretację wyników w kontekście względnym.
+
+    \item \textbf{Coefficient of Determination (R²)}:
+    \begin{equation}
+    R^2 = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n (y_i - \bar{y})^2}
+    \end{equation}
+    Wskaźnik R² ocenia, jaka część wariancji danych jest wyjaśniana przez model. Wartość bliska 1 oznacza wysoką jakość dopasowania modelu.
+\end{itemize}
+
+Metryki te zostały wykorzystane do kompleksowej oceny jakości prognoz generowanych przez model N-BEATS, co pozwoliło na dokładne określenie jego skuteczności w analizie danych fotowoltaicznych.
+
+
+%----------------------------------------------------------------------------------------
+%	ZASTOSOWANIE I IMPLEMENTACJA
+%----------------------------------------------------------------------------------------
+\section{Zastosowanie i implementacja algorytmu}
+W niniejszym projekcie algorytm \textbf{N-BEATS} został zaimplementowany przy użyciu biblioteki \textit{PyTorch}, która umożliwia tworzenie i trenowanie zaawansowanych modeli sieci neuronowych. Implementacja obejmowała następujące etapy:
+
+\subsection{Przygotowanie danych}
+Dane wejściowe zostały przygotowane w formie sekwencji czasowych. Każda sekwencja zawierała dane historyczne z ostatnich 24 godzin, które były używane do prognozowania wartości na kolejne godziny. Dane zostały:
+\begin{itemize}
+    \item Znormalizowane przy użyciu \textit{MinMaxScaler}, co pozwoliło na ujednolicenie skali wartości.
+    \item Podzielone na zbiór treningowy (80\%) i testowy (20\%).
+    \item Sformatowane w taki sposób, aby pasowały do wymagań modelu N-BEATS.
+\end{itemize}
+
+\subsection{Budowa modelu}
+Model N-BEATS został skonfigurowany z następującymi parametrami:
+\begin{itemize}
+    \item Liczba bloków prognostycznych: 4.
+    \item Rozmiar wewnętrznej reprezentacji: 256 neuronów na warstwę.
+    \item Funkcja aktywacji: ReLU.
+    \item Optymalizator: Adam, z początkową szybkością uczenia \textit{learning rate} równą 0.001.
+\end{itemize}
+Każdy blok modelu generował prognozy, które były następnie sumowane, aby uzyskać końcowy wynik.
+
+\subsection{Trenowanie modelu}
+Model został wytrenowany przez 100 epok z użyciem wskaźnika błędu \textit{Mean Squared Error} (MSE) jako funkcji kosztu. W trakcie trenowania monitorowano błędy na zbiorze testowym, co pozwoliło na optymalizację parametrów modelu.
+
+\subsection{Prognozowanie}
+Po zakończeniu trenowania model był używany do generowania prognoz produkcji energii na podstawie danych wejściowych. Wyniki prognoz były porównywane z rzeczywistymi wartościami w celu oceny skuteczności modelu.
+
+\subsection{Zastosowanie praktyczne}
+Implementacja algorytmu N-BEATS pozwala na:
+\begin{itemize}
+    \item Dokładne prognozowanie produkcji energii, co wspiera operatorów systemów PV w podejmowaniu decyzji.
+    \item Identyfikację wzorców sezonowych i dynamicznych zmian w danych.
+    \item Zastosowanie w praktyce, takich jak planowanie obciążeń sieci i optymalizacja pracy instalacji PV.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	WYNIKI
+%----------------------------------------------------------------------------------------
+\section{Wyniki}
+
+\subsection{Proces uczenia modelu}
+W procesie uczenia modelu N-BEATS obserwowano stopniowe zmniejszanie wartości funkcji kosztu na zbiorze treningowym, co wskazuje na skuteczne dopasowanie modelu do danych. Na zbiorze walidacyjnym wartości te były stabilne, co świadczy o braku przeuczenia modelu. Wartość końcowa funkcji kosztu dla zbioru walidacyjnego wyniosła około 0.09, a dla zbioru treningowego spadła do 0.05.
+
+\subsection{Porównanie rzeczywistych i prognozowanych wartości}
+Analiza wyników prognozowania modelu N-BEATS wskazuje na dużą zgodność między wartościami rzeczywistymi a prognozowanymi. Na podstawie wartości wskaźników błędu, takich jak Mean Absolute Error (MAE) na poziomie 0.19 oraz Mean Squared Error (MSE) na poziomie 0.09, można stwierdzić, że model charakteryzuje się wysoką precyzją w prognozowaniu produkcji energii. 
+
+\subsection{Wnioski z metryk oceny}
+Wyniki uzyskane na podstawie metryk oceny wskazują na następujące wnioski:
+\begin{itemize}
+    \item \textbf{Mean Squared Error (MSE):} Wartość MSE wynosząca 0.09 potwierdza, że model N-BEATS skutecznie minimalizuje większe odchylenia między wartościami prognozowanymi a rzeczywistymi, co wskazuje na dokładne odwzorowanie trendów danych.
+    \item \textbf{Mean Absolute Error (MAE):} Niska wartość MAE (0.19) oznacza, że średnie różnice między prognozami a rzeczywistymi danymi są niewielkie, co czyni model odpowiednim do praktycznych zastosowań, takich jak zarządzanie energią.
+    \item \textbf{Brak przeuczenia:} Stabilne wyniki na zbiorze walidacyjnym wskazują na dobrą ogólną zdolność uogólniania modelu bez ryzyka nadmiernego dopasowania do danych treningowych.
+    \item \textbf{Potencjał praktyczny:} Wysoka precyzja modelu oraz jego zdolność do przewidywania krótkoterminowych i długoterminowych trendów pozwalają na zastosowanie w optymalizacji pracy instalacji fotowoltaicznych.
+\end{itemize}
+
+Model N-BEATS udowodnił swoją skuteczność w analizie danych fotowoltaicznych, co czyni go wartościowym narzędziem w kontekście prognozowania produkcji energii i zarządzania zasobami energetycznymi.
+
+%----------------------------------------------------------------------------------------
+%	PODSUMOWANIE I WNIOSKI
+%----------------------------------------------------------------------------------------
+\section{Podsumowanie i wnioski}
+
+Podsumowując przeprowadzoną analizę, można stwierdzić, że model \textbf{N-BEATS} skutecznie przewiduje produkcję energii w systemach fotowoltaicznych, co zostało potwierdzone przez wyniki uzyskane na podstawie metryk oceny, takich jak \textit{Mean Squared Error (MSE)} i \textit{Mean Absolute Error (MAE)}. Model wykazał zdolność do dokładnego odwzorowania zarówno krótkoterminowych, jak i długoterminowych trendów w danych, co czyni go odpowiednim narzędziem do zastosowań praktycznych, takich jak planowanie pracy instalacji PV i optymalizacja zużycia energii.
+
+Wnioski płynące z projektu obejmują:
+\begin{itemize}
+    \item Model \textbf{N-BEATS} charakteryzuje się wysoką precyzją prognozowania, co potwierdzają niskie wartości błędów (MSE: 0.09, MAE: 0.19).
+    \item Brak przeuczenia modelu, co świadczy o jego zdolności do uogólniania i przewidywania wartości dla nowych danych.
+    \item Możliwość praktycznego zastosowania wyników w zarządzaniu energią, w tym optymalizacji pracy instalacji PV oraz planowaniu produkcji energii w zmieniających się warunkach pogodowych.
+\end{itemize}
+
+W przyszłości warto rozważyć:
+\begin{itemize}
+    \item Rozszerzenie zbioru o dodatkowe dane wejściowe, takie jak sezonowe zmienności w produkcji energii czy wpływ ekstremalnych warunków pogodowych.
+    \item Porównanie skuteczności modelu N-BEATS z innymi metodami prognozowania, np. LSTM czy Prophet, co może pomóc w jeszcze lepszym dostosowaniu narzędzi analitycznych.
+    \item Zastosowanie modelu w szerszym kontekście, np. w integracji z systemami zarządzania energią w budynkach inteligentnych.
+\end{itemize}
+
+Przeprowadzone badania pokazują, że integracja zaawansowanych modeli predykcyjnych z danymi pomiarowymi i prognozami pogodowymi może znacząco przyczynić się do poprawy efektywności zarządzania odnawialnymi źródłami energii.
+
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAFIA
+%----------------------------------------------------------------------------------------
+\section{Bibliografia}
+\begin{thebibliography}{9}
+\bibitem{oreshkin2020nbeats} Oreshkin B. et al., \textit{N-BEATS: Neural Basis Expansion Analysis for Time Series Forecasting}, 2020.
+\bibitem{liu2021pv} Liu K. et al., \textit{A review of photovoltaic systems performance prediction and its influencing factors}, Renewable and Sustainable Energy Reviews, 2021.
+\bibitem{little2002missingdata} Little R.J.A., Rubin D.B., \textit{Statistical Analysis with Missing Data}, Wiley, 2002.
+\end{thebibliography}
+
+\end{document}
